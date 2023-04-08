@@ -1,0 +1,11 @@
+//Texto básico
+{
+    "message":{
+      "text": "Exemplo de texto",
+      "error": false,
+      "lost": false,
+      "npackage": "1",
+      "mulpackages": false
+    },
+    "passkey": "3302"
+  }
