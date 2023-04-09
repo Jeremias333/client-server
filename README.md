@@ -12,6 +12,9 @@ Aplicação cliente-servidor capaz de, na camada de aplicação, fornecer uma co
 - Executar o servidor
 `python server/server.py`
 
+- Executar o cliente
+`python client/client.py`
+
 
 # Dinâmica do projeto
 - O cliente envia uma mensagem para o servidor
