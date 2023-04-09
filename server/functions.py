@@ -90,29 +90,20 @@ def verify_data_structure_passkey(body: dict()):
     return True
 
 def process_message(message: dict(), passkey: str()):
-    response_message = {
-        "id": "",
-        "text": "",
-        "error": False,
-        "lost": False,
-        "npackages": 1,
-        "multpackages": False,
-    }
+    response_message = dict()
 
     text = ""
-
+    #processamento da mensagem
+    package = Package(
+        id=get_unique_id(),
+        text=message["text"],
+        error=message["error"],
+        lost=message["lost"],
+        npackages=message["npackages"],
+        multpackages=message["multpackages"],
+        passkey=passkey
+    )
     try:
-        #processamento da mensagem
-        package = Package(
-            id=get_unique_id(),
-            text=message["text"],
-            error=message["error"],
-            lost=message["lost"],
-            npackages=message["npackages"],
-            multpackages=message["multpackages"],
-            passkey=passkey
-        )
-        
         if package.npackages == 1:
             if (package.error):
                 text = "Ocorreu um erro no processamento da mensagem"
@@ -127,28 +118,20 @@ def process_message(message: dict(), passkey: str()):
                 raise ValueError("Mensagem com mais de um pacote")
             
             text = "Mensagem recebida e processada com sucesso: {}".format(package.text)
-
         else:
-            if (package.multpackages and package.npackages > 1 and type(package.text) == list(str())):
-                text = "Mensagem com mais de um pacote"
-                raise ValueError("Mensagem com mais de um pacote")
-            else:
-                text = "Ocorreu um erro durante a leitura da mensagem em pacotes"
-                raise ValueError("Mensagem com mais de um pacote")
-            
-            if (package.error):
+            if (package.multpackages == True and package.npackages > 1 and type(package.text) == type(list())):
+                text_append = ""
+                for pkg in package.text:
+                    text_append += pkg
+                text = "Mensagem recebida e processada com sucesso: {}".format(text_append)
+                
+            if package.error == True:
                 text = "Ocorreu um erro no processamento de um dos pacotes"
                 raise ValueError("Mensagem com erro")
 
-            if (package.lost):
+            if package.lost == True:
                 text = "Ocorreu perda de um dos pacotes"
                 raise ValueError("Mensagem perdida")
-            
-            text_append = ""
-            for package in package.text:
-                text_append += package
-
-            text = "Mensagem em pacotes, recebidas e processadas com sucesso: {}".format(text_append)
 
     except Exception as e:
         if text == "":
@@ -169,7 +152,7 @@ def process_message(message: dict(), passkey: str()):
                 "npackages": package.npackages,
                 "multpackages": package.multpackages,
             }
-        print("Retornando erro para Cliente")
+            print("Retornando erro para Cliente")
         return str(response_message)
 
     response_message = {
