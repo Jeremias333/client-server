@@ -82,10 +82,10 @@ def enviar_mensagem_padrao():
     send_message()
 
 def enviar_mensagem_padrao_com_perdas():
-    send_message(error=True)
+    send_message(lost=True)
 
 def enviar_mensagem_padrao_com_erros():
-    send_message(lost=True)
+    send_message(error=True)
 
 def enviar_mensagem_por_pacotes():
     send_message(text=["nov","em","bro"], multpackages=True, npackages=3)
@@ -107,8 +107,8 @@ while True:
     print("Selecione uma opção:")
     print("1 - Teste de conexão")
     print("2 - Enviar mensagem padrão")
-    print("3 - Enviar mensagem padrão com perdas")
-    print("4 - Enviar mensagem padrão com erros")
+    print("3 - Enviar mensagem padrão com erros")
+    print("4 - Enviar mensagem padrão com perdas")
     print("5 - Enviar mensagem por pacotes")
     print("6 - Enviar mensagem por pacotes com perdas")
     print("7 - Enviar mensagem por pacotes com erros")
@@ -122,9 +122,9 @@ while True:
     elif opcao == '2':
         enviar_mensagem_padrao()
     elif opcao == '3':
-        enviar_mensagem_padrao_com_perdas()
-    elif opcao == '4':
         enviar_mensagem_padrao_com_erros()
+    elif opcao == '4':
+        enviar_mensagem_padrao_com_perdas()
     elif opcao == '5':
         enviar_mensagem_por_pacotes()
     elif opcao == '6':

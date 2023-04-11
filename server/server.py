@@ -23,16 +23,6 @@ app.add_middleware(
 @app.get("/")
 def route_index():
     content = func.get_content_instructions()
-    #print(func.get_unique_id())
-    #texto_original = "Olá, mundo!"
-    #passkey_original = "1234567890"
-    
-    #texto_encrypt = func.encrypt_message(texto_original, passkey_original)
-    #texto_decrypt = func.decrypt_message(texto_encrypt, passkey_original)
-    
-    #print("Texto original: {}".format(texto_original))
-    #print("Texto encrypt: {}".format(texto_encrypt))
-    #print("Texto decrypt: {}".format(texto_decrypt))
     return JSONResponse(status_code=200, content={
         "message": content,
         "status_code": 200,

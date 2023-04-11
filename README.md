@@ -33,7 +33,7 @@ Aplicação cliente-servidor capaz de, na camada de aplicação, fornecer uma co
 
   - Atributos de saída:
     - message:
-      - id: int
+      - id: string
       - text: string
       - error: boolean
       - lost: boolean
