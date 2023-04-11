@@ -1,8 +1,10 @@
 import requests
 import json
 import functions as func
+import time
 
 url_base = 'http://127.0.0.1:3301'
+#url_base = 'http://172.26.126.174:3301'
 
 def index():
     url = url_base + '/'
@@ -83,21 +85,36 @@ def enviar_mensagem_padrao():
 
 def enviar_mensagem_padrao_com_perdas():
     send_message(lost=True)
+    print("Falha no envio, tentando envio novamente...")
+    time.sleep(3)
+    send_message()
 
 def enviar_mensagem_padrao_com_erros():
     send_message(error=True)
+    print("Falha no envio, tentando envio novamente...")
+    time.sleep(3)
+    send_message()
 
 def enviar_mensagem_por_pacotes():
-    send_message(text=["nov","em","bro"], multpackages=True, npackages=3)
+    send_message(text=["nov","em","bro", " ", "Mon", "ta", " ", "vai", "ao", " ci", "nem", "a"], multpackages=True, npackages=3)
 
 def enviar_mensagem_por_pacotes_com_perdas():
     send_message(text=["nov","em","bro"], multpackages=True, npackages=3, lost=True)
+    print("Falha no envio de pacotes, tentando envio novamente...")
+    time.sleep(3)
+    send_message(text=["nov","em","bro"], multpackages=True, npackages=3)
 
 def enviar_mensagem_por_pacotes_com_erros():
     send_message(text=["nov","em","bro"], multpackages=True, npackages=3, error=True)
+    print("Falha no envio de pacotes, tentando envio novamente...")
+    time.sleep(3)
+    send_message(text=["nov","em","bro"], multpackages=True, npackages=3)
 
 def enviar_mensagem_duplicada():
     send_message(duplicated=True)
+    print("Falha no envio de pacotes, tentando envio novamente...")
+    time.sleep(3)
+    send_message(text=["nov","em","bro"], multpackages=True, npackages=3)
 
 def sair():
     print("Saindo...")
