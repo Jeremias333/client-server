@@ -119,11 +119,14 @@ def process_message(message: dict(), passkey: str()):
             
             text = "Mensagem recebida e processada com sucesso: {}".format(package.text)
         else:
-            if (package.multpackages == True and package.npackages > 1 and type(package.text) == type(list())):
+            if (package.multpackages == True and (package.npackages > 1 and package.npackages == len(package.text)) and type(package.text) == type(list())):
                 text_append = ""
                 for pkg in package.text:
                     text_append += pkg
                 text = "Mensagem recebida e processada com sucesso: {}".format(text_append)
+            else:
+                text = "Mensagem recebida mas não foi possível processar, tamanho de pacotes não condiz com o número de pacotes"
+                raise ValueError("Mensagem com erro de enpacotamento")
                 
             if package.error == True:
                 text = "Ocorreu um erro no processamento de um dos pacotes"
